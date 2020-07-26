@@ -1,1 +1,11 @@
+#Kernel là gì?
+- Là nhân hệ điều hành là thành phần trung tâm của hầu hết các hệ điều hành. Kernel có nhiệm vụ quản lý các tài nguyên hệ thống (liên lạc giữa các thành phần phần cứng và phần mềm).
+- Thông thường, với vai trò một thành phần cơ bản của một hệ điều hành, nhân có thể cung cấp các tầng trừu tượng mức thấp nhất cho các tài nguyên máy tính đặc biệt là bộ nhớ, CPU, và các thiết bị vào ra mà phần mềm ứng dụng cần điều khiển để thực hiện các chức năng của mình.
 
+#Phân loại Kernel
+- Các nhân khác nhau thực hiện các tác vụ của hệ điều hành theo các cách khác nhau, tùy theo thiết kế và cài đặt. Các nhân kiểu nguyên khối (Monolithic kernel) thực hiện các nhiệm vụ của mình bằng cách thực thi toàn bộ mã hệ điều hành trong cùng một địa chỉ bộ nhớ để tăng hiệu năng hệ thống. Trong khi đó các nhân loại nhỏ (Microkernel) chạy hầu hết các dịch vụ tại không gian người dùng (user space) với mục đích tăng khả năng bảo trì và tính mô đun của hệ điều hành. Có nhiều thiết kế nằm ở giữa hai thái cực này ví dụ như (Hybrid kernel) là nhân tự động phân luồng.
+- Nhìn chung, với hầu hết các kernel hiện nay, chúng ta có thể chia ra làm 3 loại: monolithic, microkernel, và hybrid. Linux sử dụng kernel monolithic trong khi OS X (XNU) và Windows 7 sử dụng kernel hybrid
+    - Microkernel: Microkernel có đầy đủ các tính năng cần thiết để quản lý bộ vi xử lý, bộ nhớ và IPC. Có rất nhiều thứ khác trong máy tính có thể được nhìn thấy, tiếp xúc và quản lý trong chế độ người dùng
+        - Microkernel với những thông số liên quan footprint rất nhỏ, tương tự với bộ nhớ và dung lượng lưu trữ, chúng còn có tính bảo mật khá cao vì chỉ định rõ ràng những tiến trình nào hoạt động trong chế độ user mode, mà không được cấp quyền như trong chế độ giám sát – supervisor mode
+
+    - Monolithic Kernel: Monolithic chúng có chức năng bao quát rộng hơn so với microkernel, không chỉ tham gia quản lý bộ vi xử lý, bộ nhớ, IRC, chúng còn can thiệp vào trình điều khiển driver, tính năng điều phối file hệ thống, các giao tiếp qua lại giữa server…

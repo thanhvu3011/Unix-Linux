@@ -1,8 +1,8 @@
-#Kernel là gì?
+# Kernel là gì?
 - Là nhân hệ điều hành là thành phần trung tâm của hầu hết các hệ điều hành. Kernel có nhiệm vụ quản lý các tài nguyên hệ thống (liên lạc giữa các thành phần phần cứng và phần mềm).
 - Thông thường, với vai trò một thành phần cơ bản của một hệ điều hành, nhân có thể cung cấp các tầng trừu tượng mức thấp nhất cho các tài nguyên máy tính đặc biệt là bộ nhớ, CPU, và các thiết bị vào ra mà phần mềm ứng dụng cần điều khiển để thực hiện các chức năng của mình.
 
-#Phân loại Kernel
+# Phân loại Kernel
 - Các nhân khác nhau thực hiện các tác vụ của hệ điều hành theo các cách khác nhau, tùy theo thiết kế và cài đặt. Các nhân kiểu nguyên khối (Monolithic kernel) thực hiện các nhiệm vụ của mình bằng cách thực thi toàn bộ mã hệ điều hành trong cùng một địa chỉ bộ nhớ để tăng hiệu năng hệ thống. Trong khi đó các nhân loại nhỏ (Microkernel) chạy hầu hết các dịch vụ tại không gian người dùng (user space) với mục đích tăng khả năng bảo trì và tính mô đun của hệ điều hành. Có nhiều thiết kế nằm ở giữa hai thái cực này ví dụ như (Hybrid kernel) là nhân tự động phân luồng
 - Nhìn chung, với hầu hết các kernel hiện nay, chúng ta có thể chia ra làm 3 loại: monolithic, microkernel, và hybrid. Linux sử dụng kernel monolithic trong khi OS X (XNU) và Windows 7 sử dụng kernel hybrid
     - Microkernel: Microkernel có đầy đủ các tính năng cần thiết để quản lý bộ vi xử lý, bộ nhớ và IPC. Có rất nhiều thứ khác trong máy tính có thể được nhìn thấy, tiếp xúc và quản lý trong chế độ người dùng
@@ -12,7 +12,7 @@
         -Nhưng đồng thời, chúng cũng là nguyên nhân gây ra sự bất ổn vì nhiều chương trình chạy trong chế độ supervisor mode hơn, chỉ cần 1 sự cố nhỏ cũng khiến cho cả hệ thống mất ổn định.
     Hybrid Kernel: Hybrid có khả năng chọn lựa và quyết định những ứng dụng nào được phép chạy trong chế độ user hoặc supervisor
 
-#Linux Kernel
+# Linux Kernel
 Vào năm 1991, dựa trên UNIX kernel, Linus Torvalds đã tạo ra Linux kernel chạy trên máy tính của ông ấy. Dựa vào chức năng của hệ điều hành, Linux kernel được chia làm 6 thành phần:
 
 - *Process management*: có nhiệm vụ quản lý các tiến trình, bao gồm các công việc:
@@ -33,7 +33,7 @@ Vào năm 1991, dựa trên UNIX kernel, Linus Torvalds đã tạo ra Linux kern
 - *Networking management*: có nhiệm vụ quản lý các gói tin (packet) theo mô hình TCP/IP
 - *System call Interface*: có nhiệm vụ cung cấp các dịch vụ sử dụng phần cứng cho các tiến trình. Mỗi dịch vụ được gọi là một system call
 
-##Kiến trúc Ring trong CPU
+## Kiến trúc Ring trong CPU
 Các Ring được sắp xếp có thứ bậc, từ mức có nhiều đặc quyền nhất (dành cho trusted-software, thường được đánh số 0) đến mức có ít đặc quyền nhất (dành cho untrusted-software, được đánh số cao nhất)
 
 Dưới đây là hình minh họa các Ring trong kiến trúc CPU x86
@@ -42,11 +42,16 @@ Dưới đây là hình minh họa các Ring trong kiến trúc CPU x86
 
 Các chương trình hoạt động tại Ring 0 có đặc quyền cao nhất, có thể tương tác trực tiếp với phần cứng như CPU, Memory…
 
-Để cho phép các ứng dụng nằm ở Ring có trọng số cao truy cập các tài nguyên được quản lý bởi các chương trình nằm ở Ring có trọng số thấp hơn, người ta xây dựng các cổng (gate) đặc biệt. Ví dụ như system call (lời gọi hàm hệ thống) giữa các Ring.
+Để cho phép các ứng dụng nằm ở Ring có trọng số cao truy cập các tài nguyên được quản lý bởi các chương trình nằm ở Ring có trọng số thấp hơn, người ta xây dựng các cổng đặc biệt. Ví dụ như system call giữa các Ring.
 
 Việc quy định chặt chẽ chương trình nào nằm tại Ring nào cộng với việc xây dựng các cổng phù hợp giữa các Ring sẽ đảm bảo tính ổn định của hệ thống, đồng thời ngăn chặn các chương trình nằm trong Ring cao sử dụng trái phép (do vô tình hoặc cố ý) các tài nguyên dành cho các chương trình khác nằm tại Ring thấp hơn
 
-Ví dụ, một spyware đang chạy với tư cách là ứng dụng cho người dùng thông thường (thuộc untrusted software) nằm tại Ring 3 có ý định bật webcam mà không được sự đồng ý của người dùng. Hành vi này sẽ bị hệ thống ngăn chặn vì muốn truy cập tới phần cứng là thiết bị webcam nó phải sử dụng một hàm trong phần mềm điều khiển thiết bị (device driver) của webcam (thuộc trusted software) nằm tại Ring 1.
+*Ví dụ, một spyware đang chạy với tư cách là ứng dụng cho người dùng thông thường (thuộc untrusted software) nằm tại Ring 3 có ý định bật webcam mà không được sự đồng ý của người dùng. Hành vi này sẽ bị hệ thống ngăn chặn vì muốn truy cập tới phần cứng là thiết bị webcam nó phải sử dụng một hàm trong phần mềm điều khiển thiết bị (device driver) của webcam (thuộc trusted software) nằm tại Ring 1*
 
 Hầu hết các hệ điều hành chỉ sử dụng 2 Ring ngay cả khi phần cứng mà hệ điều hành chạy trên đó hỗ trợ nhiều hơn 2 Ring. Ví dụ, Windows chỉ sử dụng 2 mức là Ring 0 (tương ứng với Kernel Mode) và Ring 3 (tương ứng với User Mode).
+  - **Kernel Mode** là 1 chế động hoạt động của CPU.
+Nếu 1 chương trình hoạt động trong Kernel Mode thì nó sẽ có thể nắm quyền sử dụng mọi tài nguyên hệ thống như: sử dụng được tất cả các chỉ lệnh CPU, truy cập tới mọi vùng nhớ trong RAM…
 
+Khi CPU đặt trong Kernel Mode, bạn phải chắc rằng CPU đang thực thi các đoạn mã chương trình của các trusted software. VD: Kernel, Device Driver, System Programs… là các chương trình đáng tin cậy.
+
+VD: Khi bạn cài đặt driver cho một phần cứng mới mà driver này chưa được xác thực bằng chữ kỹ số (digital signature) bởi Windows thì hệ thống sẽ đưa ra một thông điệp cảnh báo

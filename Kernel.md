@@ -46,12 +46,13 @@ Các chương trình hoạt động tại Ring 0 có đặc quyền cao nhất, 
 
 Việc quy định chặt chẽ chương trình nào nằm tại Ring nào cộng với việc xây dựng các cổng phù hợp giữa các Ring sẽ đảm bảo tính ổn định của hệ thống, đồng thời ngăn chặn các chương trình nằm trong Ring cao sử dụng trái phép (do vô tình hoặc cố ý) các tài nguyên dành cho các chương trình khác nằm tại Ring thấp hơn
 
-*Ví dụ, một spyware đang chạy với tư cách là ứng dụng cho người dùng thông thường (thuộc untrusted software) nằm tại Ring 3 có ý định bật webcam mà không được sự đồng ý của người dùng. Hành vi này sẽ bị hệ thống ngăn chặn vì muốn truy cập tới phần cứng là thiết bị webcam nó phải sử dụng một hàm trong phần mềm điều khiển thiết bị (device driver) của webcam (thuộc trusted software) nằm tại Ring 1*
+*Ví dụ, một spyware đang chạy với tư cách là ứng dụng cho người dùng thông thường nằm tại Ring 3 có ý định bật webcam mà không được sự đồng ý của người dùng. Hành vi này sẽ bị hệ thống ngăn chặn vì muốn truy cập tới phần cứng là thiết bị webcam nó phải sử dụng một hàm trong phần mềm điều khiển thiết bị (device driver) của webcam (thuộc trusted software) nằm tại Ring 1*
 
 Hầu hết các hệ điều hành chỉ sử dụng 2 Ring ngay cả khi phần cứng mà hệ điều hành chạy trên đó hỗ trợ nhiều hơn 2 Ring. Ví dụ, Windows chỉ sử dụng 2 mức là Ring 0 (tương ứng với Kernel Mode) và Ring 3 (tương ứng với User Mode).
-  - **Kernel Mode** là 1 chế động hoạt động của CPU.
-Nếu 1 chương trình hoạt động trong Kernel Mode thì nó sẽ có thể nắm quyền sử dụng mọi tài nguyên hệ thống như: sử dụng được tất cả các chỉ lệnh CPU, truy cập tới mọi vùng nhớ trong RAM…
+  - **Kernel Mode** là 1 chế động hoạt động của CPU. Nếu 1 chương trình hoạt động trong Kernel Mode thì nó sẽ có thể nắm quyền sử dụng mọi tài nguyên hệ thống như: sử dụng được tất cả các chỉ lệnh CPU, truy cập tới mọi vùng nhớ trong RAM…
 
-Khi CPU đặt trong Kernel Mode, bạn phải chắc rằng CPU đang thực thi các đoạn mã chương trình của các trusted software. VD: Kernel, Device Driver, System Programs… là các chương trình đáng tin cậy.
+     Khi CPU đặt trong Kernel Mode, bạn phải chắc rằng CPU đang thực thi các đoạn mã chương trình của các trusted software. VD: Kernel, Device Driver, System Programs… là các chương trình đáng tin cậy.
 
-VD: Khi bạn cài đặt driver cho một phần cứng mới mà driver này chưa được xác thực bằng chữ kỹ số (digital signature) bởi Windows thì hệ thống sẽ đưa ra một thông điệp cảnh báo
+     *VD: Khi bạn cài đặt driver cho một phần cứng mới mà driver này chưa được xác thực bằng chữ kỹ số (digital signature) bởi Windows thì hệ thống sẽ đưa ra một thông điệp cảnh báo*
+
+  - **User Mode** cũng là 1 chế độ hoạt động khác của CPU. Các chương trình nằm trong User Mode thì ít có đặc quyền truy cập tới tài nguyên hệ thống như: số lượng các chỉ lệnh CPU được sử dụng bị giới hạn, bị cấm truy cập tới vùng nhớ được cấp phát cho Kernel và các chương trình khác. Tất cả các phần mềm ứng dụng lớp người dùng khi mới được khởi chạy đều được đưa vào vùng User Mode.

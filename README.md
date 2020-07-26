@@ -1,6 +1,6 @@
 # Unix-Linux
 
-##Unix
+## Unix
 - Unix hay UNIX là một hệ điều hành máy tính viết vào những năm 1960 và 1970 do một số nhân viên công ty AT&T Bell Labs 
 
 - Hệ điều hành Unix là tập hợp các chương trình mà thực hiện vai trò như một đường link giữa máy tính và người sử dụng
